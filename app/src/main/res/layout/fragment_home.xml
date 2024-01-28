@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:toDoList="@{ViewModel.toDoList}"
-            setOnClickListener="@{ToDoClickListener}"
+            app:setOnClickListener="@{ToDoClickListener}"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

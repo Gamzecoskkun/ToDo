@@ -1,5 +1,5 @@
 package com.gamzecoskun.todo.model
 
-enum class Priorty {
-    HIGH,MEDIUM,LONG
+enum class Priority {
+    HIGH,MEDIUM,LOW
 }

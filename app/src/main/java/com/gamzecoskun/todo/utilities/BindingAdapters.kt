@@ -7,18 +7,18 @@ import androidx.core.widget.ImageViewCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gamzecoskun.todo.R
-import com.gamzecoskun.todo.model.Priorty
+import com.gamzecoskun.todo.model.Priority
 import com.gamzecoskun.todo.model.ToDoModel
 import com.gamzecoskun.todo.ui.home.HomeListAdapter
 import com.gamzecoskun.todo.ui.home.ToDoClickListener
 
 @BindingAdapter("setItemToDoPriorityTint")
-fun setItemToDoPriorityTint(imageView: ImageView,priorty: Priorty?){
+fun setItemToDoPriorityTint(imageView: ImageView,priority: Priority?){
     val context=imageView.context
 
-    val color=when(priorty){
-        Priorty.HIGH-> R.color.priority_high
-        Priorty.MEDIUM->R.color.md_theme_light_secondary
+    val color=when(priority){
+        Priority.HIGH-> R.color.priority_high
+        Priority.MEDIUM->R.color.md_theme_light_secondary
         else->R.color.seed
     }
 

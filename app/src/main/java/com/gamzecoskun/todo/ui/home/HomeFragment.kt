@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.gamzecoskun.todo.R
 import com.gamzecoskun.todo.databinding.FragmentHomeBinding
 import com.gamzecoskun.todo.model.ToDoModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,25 +27,23 @@ class HomeFragment : Fragment(),ToDoClickListener {
         binding.viewModel=viewModel
         binding.toDoClickListener=this
 
-        viewModel.toDoList.observe(viewLifecycleOwner){
-            println(it)
-        }
         binding.icAdd.setOnClickListener {
-            viewModel.insertToDo()
+            findNavController().navigate(R.id.homeToNewAndEdit)
         }
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding
+        _binding=null
     }
 
     override fun onToDoClick(id: Int) {
-
+val action=HomeFragmentDirections.homeToNewAndEdit(id)
+        findNavController().navigate(action)
     }
 
     override fun onToDoChecked(toDoModel: ToDoModel) {
-
+viewModel.updateToDo(toDoModel)
     }
 }

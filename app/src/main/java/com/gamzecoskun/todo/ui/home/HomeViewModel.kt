@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.gamzecoskun.todo.data.Repository
-import com.gamzecoskun.todo.model.Priorty
 import com.gamzecoskun.todo.model.ToDoModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,9 +17,12 @@ class HomeViewModel @Inject constructor(
 
     val toDoList=repository.localDataSource.getAllToDo().asLiveData()
 
-    fun insertToDo(){
+    fun updateToDo(toDoModel: ToDoModel){
+        val updatedToDoModel=toDoModel.copy(isChecked = toDoModel.isChecked?.not())
         viewModelScope.launch {
-            repository.localDataSource.insertToDo(ToDoModel(title="Deneme", description = "Deneme Açıklama", priorty = Priorty.HIGH, isChecked = true))
+            repository.localDataSource.updateToDo(updatedToDoModel)
         }
     }
+
+
 }
