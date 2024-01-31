@@ -13,30 +13,49 @@ import com.gamzecoskun.todo.ui.home.HomeListAdapter
 import com.gamzecoskun.todo.ui.home.ToDoClickListener
 
 @BindingAdapter("setItemToDoPriorityTint")
-fun setItemToDoPriorityTint(imageView: ImageView,priority: Priority?){
-    val context=imageView.context
+fun setItemToDoPriorityTint(imageView: ImageView, priority: Priority?) {
+    val context = imageView.context
 
-    val color=when(priority){
-        Priority.HIGH-> R.color.priority_high
-        Priority.MEDIUM->R.color.md_theme_light_secondary
-        else->R.color.seed
+    val color = when (priority) {
+        Priority.HIGH -> R.color.priority_high
+        Priority.MEDIUM -> R.color.md_theme_light_secondary
+        else -> R.color.seed
     }
 
-    ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(ContextCompat.getColor(context,color)))
+    ImageViewCompat.setImageTintList(
+        imageView,
+        ColorStateList.valueOf(ContextCompat.getColor(context, color))
+    )
 
 }
 
-@BindingAdapter("toDoList","setOnClickListener")
+@BindingAdapter("toDoList", "setOnClickListener", "searchQuery", "searchToDoList")
 fun setHomeRecyclerViewAdapter(
     recyclerView: RecyclerView,
-    list:List<ToDoModel>?,
-    toDoClickListener: ToDoClickListener
+    list: List<ToDoModel>?,
+    toDoClickListener: ToDoClickListener,
+    searchQuery: String,
+    searchList: List<ToDoModel>?
 ) {
-    recyclerView.apply{
-        if(this.adapter==null){
-            adapter=HomeListAdapter(toDoClickListener).apply {submitList(list)}
-        }else{
-            (this.adapter as HomeListAdapter).submitList(list)
+    recyclerView.apply {
+        if (this.adapter == null) {
+            adapter = HomeListAdapter(toDoClickListener).apply {
+                submitList(
+                    if (searchQuery.isEmpty()) {
+                        list
+                    } else {
+                        searchList
+                    }
+                )
+            }
+        } else {
+            (this.adapter as HomeListAdapter).submitList(
+                if (searchQuery.isEmpty()) {
+                    list
+                } else {
+                    searchList
+                }
+            )
         }
     }
 }
